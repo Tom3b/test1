@@ -4,6 +4,7 @@
 from datetime import datetime
 from datetime import timedelta
 from decimal import Decimal
+import math
 
 #determining lunar phase
 def lunar_phase ():
@@ -19,29 +20,29 @@ def lunar_phase ():
     phase = Decimal(p1)                 # percentage of current cycle 0% & 100% being new 50% being full
     daynum = 29.53 * float(phase)
 
-    #determining lunar phase name 
-    if 0 <= phase < 0.11:
+    #determining lunar phase name        
+    if 0 <= phase < 0.05 or 0.95 <= phase < 1:
         print ("Lunar Phase: New, day {:.1f}" .format(daynum))
         return phase
-    elif 0.11 <= phase < 0.22:
+    elif 0.05 <= phase < 0.225:
         print("Lunar Phase: Waxing Cresent, day {:.1f}" .format(daynum))
         return phase
-    elif 0.22 <= phase < 0.33:
+    elif 0.225 <= phase < 0.275:
         print("Lunar Phase: First Quarter, day {:.1f}" .format(daynum))
         return phase
-    elif 0.33 <= phase < 0.44:
+    elif 0.275 <= phase < 0.475:
         print("Lunar Phase: Waxing Gibbous, day {:.1f}" .format(daynum))
         return phase
-    elif 0.44 <= phase < 0.55:
+    elif 0.475 <= phase < 0.525:
         print("Lunar Phase: Full, day {:.1f}" .format(daynum))
         return phase
-    elif 0.55 <= phase < 0.66:
+    elif 0.525 <= phase < 0.725:
         print("Lunar Phase: Waning Gibbous, day {:.1f}" .format(daynum))
         return phase
-    elif 0.77 <= phase < 0.88:
+    elif 0.725 <= phase < 0.775:
         print("Lunar Phase: Third Quarter, day {:.1f}" .format(daynum))
         return phase
-    elif 0.88 <= phase < 1:
+    elif 0.775 <= phase < 0.95:
         print("Lunar Phase: Waning Crescent, day {:.1f}" .format(daynum))
         return phase
     else:
@@ -50,12 +51,13 @@ def lunar_phase ():
 
 #determining moon size as percentage
 def moon_size (phase):
+    # moon size is non linear to day in calendar
     if phase <= 0.5:
-        size = 200*phase
+        size = 100 * (0.5 + 0.5 * math.sin((float (phase) * 2 * 3.14159) - 1.57096))
         print("Moon Size: {0:.2f}%".format(size))
         return size
     elif 0.5 < phase < 1:
-        size = 200*(1-phase)
+        size = 100 * (0.5 + 0.5 * math.sin(((1 - float(phase)) * 2 * 3.14159) - 1.57096))
         print("Moon Size: {0:.2f}%".format(size))
         return size
     else:
@@ -65,6 +67,3 @@ def moon_size (phase):
 # main path of program
 lunar_phase();
 moon_size(phase);
-
-
-
