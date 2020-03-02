@@ -3,7 +3,6 @@
 
 from datetime import datetime
 from datetime import timedelta
-from decimal import Decimal
 import math
 
 #determining lunar phase
@@ -17,7 +16,8 @@ def lunar_phase ():
     timesn = days + seconds             # time since new moon
     p1 = timesn / 29.53                 # new moon repeats every 29.53 days
     global phase
-    phase = Decimal(p1)                 # percentage of current cycle 0% & 100% being new 50% being full
+    phase1 = math.floor(p1)             # removal of extra months 
+    phase = (p1 / phase1) - 1
     daynum = 29.53 * float(phase)
 
     #determining lunar phase name        
